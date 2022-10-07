@@ -3,20 +3,20 @@ Rails.application.routes.draw do
 
   scope module: :api do
     scope module: :v1 do
-      resource :clients, only: [:create] do
-        get :sign_in, on: :collection
+      resource :clients, only: [:create, :show] do
+        post :sign_in, on: :collection
       end
 
-      resource :admins, only: [:create] do
-        get :sign_in, on: :collection
+      resource :admins, only: [:create, :show] do
+        post :sign_in, on: :collection
       end
 
-      resource :editors, only: [:create] do
-        get :sign_in, on: :collection
+      resource :editors, only: [:create, :show] do
+        post :sign_in, on: :collection
       end
 
-      resource :leaders, only: [:create] do
-        get :sign_in, on: :collection
+      resource :managers, only: [:create, :show] do
+        post :sign_in, on: :collection
       end
     end
   end

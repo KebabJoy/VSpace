@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_07_150053) do
+ActiveRecord::Schema.define(version: 2022_10_07_175837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "starts_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "exchange_transactions", force: :cascade do |t|
+    t.bigint "from_client_id"
+    t.bigint "to_client_id"
+    t.decimal "amount"
+    t.integer "currency"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["from_client_id"], name: "index_exchange_transactions_on_from_client_id"
+    t.index ["to_client_id"], name: "index_exchange_transactions_on_to_client_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "title"
+    t.integer "amount"
+    t.decimal "price"
+    t.string "image_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,6 +54,10 @@ ActiveRecord::Schema.define(version: 2022_10_07_150053) do
     t.string "auth_token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "rubles", default: "0.0"
+    t.decimal "matics", default: "0.0"
+    t.string "private_key", default: ""
+    t.string "public_key", default: ""
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["type"], name: "index_users_on_type"

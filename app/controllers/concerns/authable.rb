@@ -3,7 +3,7 @@
 module Authable
   extend ActiveSupport::Concern
 
-  def sign_in
+  def show
     return not_found unless current_member
 
     render json: {
@@ -12,19 +12,28 @@ module Authable
     }
   end
 
-  def create
-    @user = resource.new(user_params)
-    @user.setup_token
+  def sign_in
+    @current_member = resource.find_by(email: sign_in_params[:email], encrypted_password: sign_in_params[:password])
 
-    if @user.save
+    render json: {
+      success: true,
+      **::UserBlueprinter.render_as_hash(@current_member, root: :user),
+    }
+  end
+
+  def create
+    @current_member = resource.new(user_params)
+    @current_member.setup_token
+
+    if @current_member.save
       render json: {
         success: true,
-        **::UserBlueprinter.render_as_hash(@user, root: :user),
+        **::UserBlueprinter.render_as_hash(@current_member, root: :user),
       }
     else
       render json: {
         success: false,
-        errors: @user.errors,
+        errors: @current_member.errors,
       }
     end
   end
@@ -60,6 +69,10 @@ module Authable
 
   def current_member
     @current_member ||= resource.find_by(auth_token: params[:auth_token])
+  end
+
+  def sign_in_params
+    @sign_in_params ||= params.require(:user).permit(:email, :password)
   end
 
   def not_found(message = "Not Found")
