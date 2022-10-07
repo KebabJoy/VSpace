@@ -16,8 +16,11 @@ Rails.application.routes.draw do
       end
 
       resource :managers, only: [:create, :show] do
+        resource :exchanges, only: :create
         post :sign_in, on: :collection
       end
+
+      resource :exchanges, only: [:create]
     end
   end
 end

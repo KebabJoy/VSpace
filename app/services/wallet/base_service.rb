@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'dry/monads/all'
+
 module Wallet
   class BaseService
     extend Dry::Initializer

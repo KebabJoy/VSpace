@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_07_175837) do
+ActiveRecord::Schema.define(version: 2022_10_07_202956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,11 @@ ActiveRecord::Schema.define(version: 2022_10_07_175837) do
     t.integer "currency"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "managers_id"
+    t.boolean "processed", default: false
+    t.string "transaction_hash"
     t.index ["from_client_id"], name: "index_exchange_transactions_on_from_client_id"
+    t.index ["managers_id"], name: "index_exchange_transactions_on_managers_id"
     t.index ["to_client_id"], name: "index_exchange_transactions_on_to_client_id"
   end
 
