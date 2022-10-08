@@ -3,7 +3,7 @@
 module Api
   module V1
     module Managers
-      class ExhangesController < BaseController
+      class ExchangesController < BaseController
         def create
           response = ::Wallet::Transactions::Processor.new(
             from_client_id: permitted_params[:from_client],
