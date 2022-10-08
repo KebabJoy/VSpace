@@ -19,7 +19,7 @@ module VMart
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
-        resource '/*', :headers => :any, :methods => :patch
+        resource '/*', headers: :any, methods: [:patch, :post, :get, :put]
       end
     end
 
