@@ -17,14 +17,14 @@ module Authable
   end
 
   def sign_in
-    @current_member = resource.find_by(email: sign_in_params[:email], encrypted_password: sign_in_params[:password])
+    @current_member = resource.find_by(email: sign_in_params[:email], password: sign_in_params[:password])
 
     return not_found unless @current_member
 
     render json: {
       success: true,
       **::UserBlueprinter.render_as_hash(@current_member, root: :user),
-    }
+    }, status: 200
   end
 
   def create
@@ -56,7 +56,7 @@ module Authable
       render json: {
         success: false,
         errors: current_member.errors,
-      }
+      }, status: 400
     end
   end
 
