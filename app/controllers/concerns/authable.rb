@@ -76,11 +76,7 @@ module Authable
   end
 
   def not_found(message = "Not Found")
-    respond_to do |format|
-      format.json do
-        render json: { success: false, message: message }, status: :not_found
-      end
-    end
+    render json: { success: false, message: message }, status: :not_found
   end
 
   def resource

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_08_144113) do
+ActiveRecord::Schema.define(version: 2022_10_08_144330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,9 +28,10 @@ ActiveRecord::Schema.define(version: 2022_10_08_144113) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "reward", default: "0.0"
-    t.integer "currency", default: 0
     t.integer "participants_needed", default: 0
     t.decimal "experience", default: "0.0"
+    t.bigint "currency_id"
+    t.index ["currency_id"], name: "index_events_on_currency_id"
   end
 
   create_table "exchange_transactions", force: :cascade do |t|
