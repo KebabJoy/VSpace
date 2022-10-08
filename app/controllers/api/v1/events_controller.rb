@@ -14,13 +14,15 @@ module Api
       end
 
       def take
+        @order = Task.new(event_id: params[:event_id], client: current_member)
+
 
       end
 
       private
 
-      def filter_params
-
+      def resource
+        Client
       end
     end
   end

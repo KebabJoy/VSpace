@@ -4,4 +4,5 @@ class Event < ApplicationRecord
   validates_presence_of :title, :description, :participants_needed
 
   belongs_to :currency
+  has_many :tasks
 end

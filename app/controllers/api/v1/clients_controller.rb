@@ -18,7 +18,14 @@ module Api
       end
 
       def balance_history
+        history = ExchangeTransaction.where('from_client_id = ? OR to_client_id = ?', params[:client_id], params[:client_id])
 
+        render(
+          json: {
+            success: true,
+            **::ExchangeTransactionBlueprinter.render_as_hash(history, root: :history),
+          }
+        )
       end
 
       private
