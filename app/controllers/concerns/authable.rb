@@ -28,7 +28,7 @@ module Authable
   end
 
   def create
-    @current_member = Client.new(user_params)
+    @current_member = resource.new(user_params)
     @current_member.setup_token
 
     if @current_member.save
