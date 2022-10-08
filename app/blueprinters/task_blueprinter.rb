@@ -2,5 +2,5 @@
 
 class TaskBlueprinter < Blueprinter::Base
   identifier :id
-  association :event, EventBlueprinter
+  # association :event, EventBlueprinter
 end
