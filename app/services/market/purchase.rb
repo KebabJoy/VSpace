@@ -27,7 +27,7 @@ module Market
     def validate
       return Failure(:out_of_stock) if product.amount.zero?
 
-      return Failure(:not_enough_money) unless client.can_buy?(product)
+      return Failure(:not_enough_money) if client.matics + ExchangeTransaction::MATIC_COMISSION < product.price
 
       Success(:ok)
     end

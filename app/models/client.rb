@@ -20,39 +20,12 @@ class Client < User
 
   has_many :ratings
 
-  # TODO: add redis cache on requests
-  def matics
-    sync_money
-
-    read_attribute(:matics)
-  end
-
-  # TODO: add redis cache on requests
-  def rubles
-    sync_money
-
-    read_attribute(:rubles)
-  end
-
   def rank
     I18n.t("client.rank.#{read_attribute(:rank)}")
   end
 
   def nft_balance
     @nft_balance ||= Wallet::Nft::BalanceInfo.new(client: self).call
-  end
-
-  def can_buy?(product)
-    case product.currency.kind
-    when :ruble
-      return false if product.price > rubles
-    when :matic
-      return false if product.price > matics + ExchangeTransaction::MATIC_COMISSION
-    else
-      false
-    end
-
-    true
   end
 
   private

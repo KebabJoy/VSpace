@@ -5,8 +5,6 @@ module Api
     class ClientsController < BaseController
       include Authable
 
-      after_action :create_wallet, only: :create
-
       def leaderboard
         render(
           json: {
@@ -29,10 +27,6 @@ module Api
       end
 
       private
-
-      def create_wallet
-        ::Wallet::Initializer.new(client: @current_member).call if @current_member.persisted?
-      end
 
       def resource
         Client
