@@ -10,6 +10,8 @@ module Market
     option :client, required: true
 
     def call
+      return Success(product.update!(amount: product.amount - 1)) if product.price.zero?
+
       yield validate
 
       response = ::Wallet::Transactions::Processor.new(
@@ -35,7 +37,10 @@ module Market
     def process_response(response)
       return response if response.failure?
 
-      Success(product.update!(amount: product.amount - 1))
+      product.update!(amount: product.amount - 1)
+      order = Order.create!(client: client, product: product)
+
+      Success(order)
     end
   end
 end

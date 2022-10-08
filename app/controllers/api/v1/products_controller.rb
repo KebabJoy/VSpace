@@ -22,7 +22,7 @@ module Api
           render(
             json: {
               success: true,
-              **::ProductBlueprinter.render_as_hash(product),
+              **::ProductBlueprinter.render_as_hash(@product),
             }
           )
         else
@@ -31,7 +31,27 @@ module Api
       end
 
       def lottery
-        
+        lower_bound = current_member.matic - ExchangeTransaction::MATIC_COMISSION
+        product_ids = Product
+                      .joins(:currency)
+                      .where(
+                        '(currencies.kind = ? AND products.price < ?) OR (currencies.kind = ? AND products.price < ?)',
+                        Currency.kinds[:ruble], current_member.rubles, Currency.kinds[:matic], lower_bound
+                        ).pluck(:id)
+
+        @product = Product.find_by(id: product_ids.sample)
+        response = ::Market::Purchase.new(product: @product, client: current_member).call if @product
+
+        if response&.success?
+          render(
+            json: {
+              success: true,
+              **::ProductBlueprinter.render_as_hash(@product),
+            }
+          )
+        else
+          render json: { success: false, message: 'Недостаточно денег ни на один товар' }, status: 404
+        end
       end
 
       private
