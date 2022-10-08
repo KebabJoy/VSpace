@@ -3,7 +3,7 @@
 module Api
   module V1
     module Managers
-      class CurrenciesController < BaseController
+      class OrdersController < BaseController
         def index
           currencies = Currency.all
 
