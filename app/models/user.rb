@@ -27,4 +27,8 @@ class User < ApplicationRecord
   def create_wallet
     ::Wallet::Initializer.new(client: self).call
   end
+
+  def sync_money
+    @sync_money ||= Wallet::BalanceInfo.new(client: self).call
+  end
 end

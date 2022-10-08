@@ -30,6 +30,10 @@ module Api
         end
       end
 
+      def lottery
+        
+      end
+
       private
 
       def search_params

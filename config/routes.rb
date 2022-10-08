@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       resources :news, only: [:index]
       resources :products, only: [:index] do
         post :buy, on: :member
+        post :lottery, on: :collection
       end
 
       resources :events, only: [:index] do

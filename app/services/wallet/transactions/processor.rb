@@ -24,8 +24,8 @@ module Wallet
         status = Info.new(transaction_hash: transaction_hash).call
         ExchangeTransaction.create!(
           amount: amount,
-          from_client_id: from_client_id,
-          to_client_id: to_client_id,
+          from_client: @from_client,
+          to_client: @to_client,
           currency: currency,
           processed: status.success?
         )

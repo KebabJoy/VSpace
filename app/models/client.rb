@@ -27,10 +27,4 @@ class Client < User
   def nft_balance
     @nft_balance ||= Wallet::Nft::BalanceInfo.new(client: self).call
   end
-
-  private
-
-  def sync_money
-    @sync_money ||= Wallet::BalanceInfo.new(client: self).call
-  end
 end
