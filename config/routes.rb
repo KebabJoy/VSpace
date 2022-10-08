@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         collection do
           post :sign_in
           get :leaderboard
+          get :balance_history
         end
       end
 
