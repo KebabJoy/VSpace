@@ -17,6 +17,10 @@ module Api
         )
       end
 
+      def balance_history
+
+      end
+
       private
 
       def create_wallet

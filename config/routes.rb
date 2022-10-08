@@ -28,7 +28,10 @@ Rails.application.routes.draw do
 
       resource :exchanges, only: [:create]
       resources :news, only: [:index]
-      resources :products, only: [:index]
+      resources :products, only: [:index] do
+        post :buy, on: :member
+      end
+
       resources :events, only: [:index] do
         post :take, on: :collection
       end

@@ -1,0 +1,8 @@
+ru:
+  client:
+    rank:
+      newbie: "Новичок"
+      smesharik: "Смешарик"
+      master: "Мастер"
+      king: "Легенда"
+

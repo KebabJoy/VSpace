@@ -16,7 +16,8 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'dry-initializer'
 gem 'dry-monads', '~> 1.3'
-
+gem 'rails-i18n', '~> 7.0.0'
+gem 'searchlight'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

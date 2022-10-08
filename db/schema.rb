@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_08_121227) do
+ActiveRecord::Schema.define(version: 2022_10_08_144113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,12 +37,13 @@ ActiveRecord::Schema.define(version: 2022_10_08_121227) do
     t.bigint "from_client_id"
     t.bigint "to_client_id"
     t.decimal "amount"
-    t.integer "currency"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "managers_id"
     t.boolean "processed", default: false
     t.string "transaction_hash"
+    t.bigint "currency_id"
+    t.index ["currency_id"], name: "index_exchange_transactions_on_currency_id"
     t.index ["from_client_id"], name: "index_exchange_transactions_on_from_client_id"
     t.index ["managers_id"], name: "index_exchange_transactions_on_managers_id"
     t.index ["to_client_id"], name: "index_exchange_transactions_on_to_client_id"
@@ -59,6 +60,15 @@ ActiveRecord::Schema.define(version: 2022_10_08_121227) do
     t.index ["manager_id"], name: "index_news_on_manager_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["product_id"], name: "index_orders_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "title"
     t.integer "amount"
@@ -66,6 +76,9 @@ ActiveRecord::Schema.define(version: 2022_10_08_121227) do
     t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "currency_id"
+    t.integer "category", default: 0
+    t.index ["currency_id"], name: "index_products_on_currency_id"
   end
 
   create_table "ratings", force: :cascade do |t|
