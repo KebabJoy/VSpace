@@ -28,6 +28,7 @@ module Authable
   end
 
   def create
+    pp params
     @current_member = resource.new(user_params)
     @current_member.setup_token
 
