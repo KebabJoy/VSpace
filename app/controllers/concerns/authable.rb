@@ -28,7 +28,6 @@ module Authable
   end
 
   def create
-    pp params
     @current_member = resource.new(user_params)
     @current_member.setup_token
 
@@ -41,7 +40,7 @@ module Authable
       render json: {
         success: false,
         errors: @current_member.errors,
-      }
+      }, status: 400
     end
   end
 
