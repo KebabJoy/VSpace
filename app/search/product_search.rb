@@ -5,7 +5,7 @@ class ProductSearch < Searchlight::Search
     Product.all
   end
 
-  def category
+  def search_category
     query.where(category: options[:category])
   end
 end
