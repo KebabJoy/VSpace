@@ -22,7 +22,7 @@ module Api
         private
 
         def permitted_params
-          params.require(:news).permit(:title, :body, :priority, :attachment_url)
+          params.permit(:title, :body, :priority, :attachment_url)
         end
 
         def resource

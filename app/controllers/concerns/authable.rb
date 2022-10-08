@@ -64,18 +64,15 @@ module Authable
   private
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name).dup.tap do |hash|
-      hash[:encrypted_password] = params[:user].require(:password)
-      hash[:email] = params[:user].require(:email)
-    end
+    params.permit(:email, :first_name, :last_name, :password)
   end
 
   def update_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password, :bio, :age)
+    params.permit(:email, :first_name, :last_name, :password, :bio, :age)
   end
 
   def sign_in_params
-    @sign_in_params ||= params.require(:user).permit(:email, :password)
+    @sign_in_params ||= params.permit(:email, :password)
   end
 
   def not_found(message = "Not Found")

@@ -23,7 +23,7 @@ module Api
         private
 
         def permitted_params
-          params.require(:exchange).permit(:from_client, :to_client, :currency, :amount)
+          params.permit(:from_client, :to_client, :currency, :amount)
         end
 
         def resource
