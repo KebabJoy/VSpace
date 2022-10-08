@@ -34,19 +34,18 @@ ActiveRecord::Schema.define(version: 2022_10_08_144113) do
   end
 
   create_table "exchange_transactions", force: :cascade do |t|
+    t.string "from_client_type"
     t.bigint "from_client_id"
+    t.string "to_client_type"
     t.bigint "to_client_id"
     t.decimal "amount"
+    t.integer "currency"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "managers_id"
     t.boolean "processed", default: false
     t.string "transaction_hash"
-    t.bigint "currency_id"
-    t.index ["currency_id"], name: "index_exchange_transactions_on_currency_id"
-    t.index ["from_client_id"], name: "index_exchange_transactions_on_from_client_id"
-    t.index ["managers_id"], name: "index_exchange_transactions_on_managers_id"
-    t.index ["to_client_id"], name: "index_exchange_transactions_on_to_client_id"
+    t.index ["from_client_type", "from_client_id"], name: "index_exchange_transactions_on_from_client"
+    t.index ["to_client_type", "to_client_id"], name: "index_exchange_transactions_on_to_client"
   end
 
   create_table "news", force: :cascade do |t|

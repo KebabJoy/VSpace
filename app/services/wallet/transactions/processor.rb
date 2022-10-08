@@ -8,7 +8,6 @@ module Wallet
       option :from_client_id, required: true
       option :to_client_id, required: true
       option :currency, required: true
-      option :manager_id
       option :amount, required: true
 
       def call
@@ -27,7 +26,6 @@ module Wallet
           amount: amount,
           from_client_id: from_client_id,
           to_client_id: to_client_id,
-          manager_id: manager_id,
           currency: currency,
           processed: status.success?
         )
