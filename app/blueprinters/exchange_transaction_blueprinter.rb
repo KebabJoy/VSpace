@@ -4,8 +4,8 @@ class ExchangeTransactionBlueprinter < Blueprinter::Base
   identifier :id
   fields :amount
 
-  field(:currency) do
-    currency.kind
+  field(:currency) do |obj, _o|
+    obj.currency.kind
   end
 
   field(:from_client) do |obj, _o|
