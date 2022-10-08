@@ -22,6 +22,9 @@ Rails.application.routes.draw do
         resource :exchanges, only: :create
         resource :news, only: :create
         resource :events, only: :create
+        resources :tasks, only: :index, controller: 'managers/tasks' do
+          post :move, on: :member
+        end
 
         post :sign_in, on: :collection
       end

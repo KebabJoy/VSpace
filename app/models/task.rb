@@ -5,4 +5,15 @@ class Task < ApplicationRecord
 
   belongs_to :client
   belongs_to :event
+
+  def mark_finished!
+    response = ::Wallet::Transactions::Processor.new(
+      from_client_id: Admin::MONEY_STORAGE_ID,
+      to_client_id: client_id,
+      currency: event.currency.kind,
+      amount: event.reward,
+    )
+
+    finished! if response.success?
+  end
 end

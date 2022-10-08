@@ -10,7 +10,7 @@ module Api
           render(
             json: {
               success: true,
-              **::CurrencyBlueprinter.render_as_hash(currencies, root: :currencies),
+              **::OrderBlueprinter.render_as_hash(currencies, root: :currencies),
             }, status: 200
           )
         end
