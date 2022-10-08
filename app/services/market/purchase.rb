@@ -12,6 +12,14 @@ module Market
     def call
       yield validate
 
+      response = ::Wallet::Transactions::Processor.new(
+        from_client_id: client.id,
+        to_client_id: Admin::MONEY_STORAGE_ID,
+        currency: product.currency.kind,
+        amount: product.price,
+      ).call
+
+      yield process_response(response.success)
     end
 
     private
@@ -22,6 +30,12 @@ module Market
       return Failure(:not_enough_money) unless client.can_buy?(product)
 
       Success(:ok)
+    end
+
+    def process_response(response)
+      return response if response.failure?
+
+      Success(product.update!(amount: product.amount - 1))
     end
   end
 end

@@ -22,7 +22,7 @@ module Api
         private
 
         def permitted_params
-          params.permit(
+          params.require(:event).permit(
             :title,
             :description,
             :deadline,

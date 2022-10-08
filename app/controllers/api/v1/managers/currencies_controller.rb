@@ -5,12 +5,10 @@ module Api
     module Managers
       class CurrenciesController < BaseController
         def index
-          currencies = Currency.all
-
           render(
             json: {
               success: true,
-              **::CurrencyBlueprinter.render_as_hash(currencies, root: :currencies),
+              **::CurrencyBlueprinter.render_as_hash(Currency.all, root: :currencies),
             }, status: 200
           )
         end

@@ -22,11 +22,11 @@ module Api
           render(
             json: {
               success: true,
-
+              **::ProductBlueprinter.render_as_hash(product),
             }
           )
         else
-
+          render json: { success: false, message: response.failure }, status: 400
         end
       end
 

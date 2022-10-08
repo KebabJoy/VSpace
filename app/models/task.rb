@@ -15,5 +15,6 @@ class Task < ApplicationRecord
     )
 
     finished! if response.success?
+    response
   end
 end

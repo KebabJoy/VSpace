@@ -22,7 +22,7 @@ module Api
         private
 
         def permitted_params
-          params.permit(:title, :amount, :price, :image_url, :currency_id, :category)
+          params.require(:product).permit(:title, :amount, :price, :image_url, :currency_id, :category)
         end
 
         def resource

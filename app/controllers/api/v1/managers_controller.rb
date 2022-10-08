@@ -5,7 +5,17 @@ module Api
     class ManagersController < BaseController
       include Authable
 
+      before_action :obtain_client, only: :generate_nft
+
+      def generate_nft
+
+      end
+
       private
+
+      def obtain_client
+        @client ||= Client.find(params[:client_id])
+      end
 
       def resource
         Manager

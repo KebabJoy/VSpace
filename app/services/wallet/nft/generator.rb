@@ -2,7 +2,7 @@
 
 module Wallet
   module Nft
-    class Generator
+    class Generator < BaseService
 
     end
   end
