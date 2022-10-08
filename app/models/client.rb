@@ -17,8 +17,11 @@ class Client < User
 
   has_many :transfer_transactions, class_name: 'ExchangeTransaction', foreign_key: 'from_client_id'
   has_many :topup_transactions, class_name: 'ExchangeTransaction', foreign_key: 'to_client_id'
-
   has_many :ratings
+
+  has_one :team_group, class_name: 'Team', foreign_key: 'leader_id'
+
+  belongs_to :team, optional: true
 
   def rank
     I18n.t("client.rank.#{read_attribute(:rank)}")

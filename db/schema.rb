@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_08_212106) do
+ActiveRecord::Schema.define(version: 2022_10_08_222656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,14 @@ ActiveRecord::Schema.define(version: 2022_10_08_212106) do
     t.index ["event_id"], name: "index_tasks_on_event_id"
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.string "name"
+    t.bigint "leader_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["leader_id"], name: "index_teams_on_leader_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "first_name"
@@ -117,8 +125,11 @@ ActiveRecord::Schema.define(version: 2022_10_08_212106) do
     t.string "position", default: ""
     t.integer "rank", default: 0
     t.string "avatar_url", default: ""
+    t.bigint "team_id"
+    t.string "city", default: ""
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["team_id"], name: "index_users_on_team_id"
     t.index ["type"], name: "index_users_on_type"
   end
 
