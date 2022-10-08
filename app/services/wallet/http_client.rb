@@ -21,6 +21,7 @@ module Wallet
       Success(parsed_body(response))
     rescue => e
       pp e
+      Failure(e)
     end
 
     private

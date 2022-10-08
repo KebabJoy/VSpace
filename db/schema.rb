@@ -10,17 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_07_202956) do
+ActiveRecord::Schema.define(version: 2022_10_08_121227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "currencies", force: :cascade do |t|
+    t.integer "kind"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.datetime "starts_at"
+    t.datetime "deadline"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "reward", default: "0.0"
+    t.integer "currency", default: 0
+    t.integer "participants_needed", default: 0
+    t.decimal "experience", default: "0.0"
   end
 
   create_table "exchange_transactions", force: :cascade do |t|
@@ -38,6 +48,17 @@ ActiveRecord::Schema.define(version: 2022_10_07_202956) do
     t.index ["to_client_id"], name: "index_exchange_transactions_on_to_client_id"
   end
 
+  create_table "news", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.string "attachment_url", default: ""
+    t.bigint "manager_id"
+    t.integer "priority", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["manager_id"], name: "index_news_on_manager_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "title"
     t.integer "amount"
@@ -45,6 +66,24 @@ ActiveRecord::Schema.define(version: 2022_10_07_202956) do
     t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.bigint "client_id"
+    t.decimal "score_change", default: "0.0"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_ratings_on_client_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.bigint "event_id"
+    t.bigint "client_id"
+    t.integer "state", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_tasks_on_client_id"
+    t.index ["event_id"], name: "index_tasks_on_event_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,6 +101,8 @@ ActiveRecord::Schema.define(version: 2022_10_07_202956) do
     t.decimal "matics", default: "0.0"
     t.string "private_key", default: ""
     t.string "public_key", default: ""
+    t.string "position", default: ""
+    t.integer "rank", default: 0
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["type"], name: "index_users_on_type"

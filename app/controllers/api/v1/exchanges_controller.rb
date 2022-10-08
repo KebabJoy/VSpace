@@ -5,7 +5,7 @@ module Api
     class ExchangesController < BaseController
       def create
         response = ::Wallet::Transactions::Processor.new(
-          from_client_id: permitted_params[:from_client],
+          from_client_id: current_member.id,
           to_client_id: permitted_params[:to_client],
           currency: permitted_params[:currency],
           amount: permitted_params[:amount],
@@ -21,7 +21,7 @@ module Api
       private
 
       def permitted_params
-        params.require(:exchange).permit(:from_client, :to_client, :currency, :amount)
+        params.require(:exchange).permit(:to_client, :currency, :amount)
       end
     end
   end

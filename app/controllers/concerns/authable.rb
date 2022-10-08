@@ -3,6 +3,10 @@
 module Authable
   extend ActiveSupport::Concern
 
+  included do
+    skip_before_action :authorize!
+  end
+
   def show
     return not_found unless current_member
 
@@ -65,10 +69,6 @@ module Authable
 
   def update_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :bio, :age)
-  end
-
-  def current_member
-    @current_member ||= resource.find_by(auth_token: params[:auth_token])
   end
 
   def sign_in_params
