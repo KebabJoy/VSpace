@@ -14,9 +14,18 @@ module Api
       end
 
       def take
-        @order = Task.new(event_id: params[:event_id], client: current_member)
+        @task = Task.new(event_id: params[:event_id], client: current_member)
 
+        if @task.save
+          render(
+            json: {
+              success: true,
 
+            }
+          )
+        else
+          render json: { success: false, message: event.errors.full_message }, status: 400
+        end
       end
 
       private

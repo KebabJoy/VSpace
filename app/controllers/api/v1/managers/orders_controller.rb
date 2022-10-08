@@ -5,7 +5,7 @@ module Api
     module Managers
       class OrdersController < BaseController
         def index
-          currencies = Currency.all
+          currencies = Order.all
 
           render(
             json: {
