@@ -22,12 +22,20 @@ module Api
           json: {
             success: true,
             **::ExchangeTransactionBlueprinter.render_as_hash(history, root: :history),
-          }
+          }, status: 200
         )
       end
 
       def colleagues
+        client = Client.find(params[:client_id])
+        teammates = client.team&.clients || []
 
+        render(
+          json: {
+            success: true,
+            **::UserBlueprinter.render_as_hash(teammates),
+          }, status: 200
+        )
       end
 
       private
