@@ -44,7 +44,7 @@ module Wallet
       end
 
       def valid?
-        return Failure(:not_enough_money) if amount <= ExchangeTransaction::MATIC_COMISSION && currency.to_sym == :matic
+        return Failure(:not_enough_money) unless @from_client.has_enough_money?(amount, currency)
 
         Success(:ok)
       end

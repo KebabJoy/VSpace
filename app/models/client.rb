@@ -27,6 +27,17 @@ class Client < User
     I18n.t("client.rank.#{read_attribute(:rank)}")
   end
 
+  def has_enough_money?(price, currency)
+    case currency.to_sym
+    when :ruble
+      matics >= ExchangeTransaction::MATIC_COMISSION && rubles >= price
+    when :matic
+      matics >= price + ExchangeTransaction::MATIC_COMISSION
+    else
+      raise 'Invalid currency'
+    end
+  end
+
   def nft_balance
     @nft_balance ||= Wallet::Nft::BalanceInfo.new(client: self).call
   end

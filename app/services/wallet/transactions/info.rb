@@ -3,6 +3,8 @@
 module Wallet
   module Transactions
     class Info < BaseService
+      include Dry::Monads::Do.for(:call)
+
       option :transaction_hash, required: true
 
       def call
