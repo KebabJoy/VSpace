@@ -28,12 +28,12 @@ module Api
 
       def colleagues
         client = Client.find(params[:client_id])
-        teammates = client.team&.colleagues || []
+        teammates = client.team&.colleagues&.includes(:team, :ratings) || []
 
         render(
           json: {
             success: true,
-            **::UserBlueprinter.render_as_hash(teammates, root: :colleagues),
+            **::UserBlueprinter.render_as_hash(teammates, root: :colleagues, view: :bulk),
             count: teammates.size,
           }, status: 200
         )

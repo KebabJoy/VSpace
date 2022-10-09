@@ -18,4 +18,13 @@ class UserBlueprinter < Blueprinter::Base
   field(:team) do |user, _o|
     user.team&.name.to_s
   end
+
+  view :bulk do
+    exclude :rubles
+    exclude :matics
+    exclude :nft_balance
+    exclude :city
+    exclude :bio
+    exclude :auth_token
+  end
 end
