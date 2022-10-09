@@ -36,7 +36,7 @@ module Wallet
       private
 
       def set_variables
-        @from_client = Client.find_by(id: @from_client_id)
+        @from_client = User.find_by(id: @from_client_id)
         @to_client = User.find_by(id: @to_client_id)
 
         return Failure(:not_found) unless @from_client && @to_client

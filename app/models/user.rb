@@ -22,6 +22,17 @@ class User < ApplicationRecord
     read_attribute(:rubles)
   end
 
+  def has_enough_money?(price, currency)
+    case currency.to_sym
+    when :ruble
+      matics.to_f >= ExchangeTransaction::MATIC_COMISSION && rubles.to_f >= price.to_f
+    when :matic
+      matics.to_f >= (price + ExchangeTransaction::MATIC_COMISSION).to_f
+    else
+      raise 'Invalid currency'
+    end
+  end
+
   private
 
   def create_wallet
