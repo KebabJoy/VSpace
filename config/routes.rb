@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       end
 
       resource :managers, only: [:create, :show] do
-        resource :exchanges, only: :create, controller: 'managers/exchange'
+        resource :exchanges, only: :create, controller: 'managers/exchanges'
         resource :news, only: :create, controller: 'managers/exchange'
         resource :events, only: :create, controller: 'managers/exchange'
         resources :tasks, only: :index, controller: 'managers/tasks' do
@@ -43,6 +43,8 @@ Rails.application.routes.draw do
       resources :events, only: [:index] do
         post :take, on: :collection
       end
+
+      resources :teams, only: :index
     end
   end
 end

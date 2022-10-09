@@ -8,7 +8,7 @@ module Api
 
         def create
           response = ::Wallet::Transactions::Processor.new(
-            from_client_id: permitted_params[:from_client],
+            from_client_id: Admin::MONEY_STORAGE_ID,
             to_client_id: permitted_params[:to_client],
             currency: @currency,
             amount: permitted_params[:amount],
@@ -25,7 +25,7 @@ module Api
         private
 
         def permitted_params
-          params.permit(:from_client, :to_client, :currency, :amount)
+          params.permit(:to_client, :currency, :amount)
         end
 
         def resource
@@ -33,7 +33,7 @@ module Api
         end
 
         def obtain_currency
-          @currency ||= Currency.find_by(kind: params[:currency])
+          @currency ||= Currency.find_by(kind: :ruble)
         end
       end
     end

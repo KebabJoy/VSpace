@@ -6,10 +6,12 @@ module Api
       include Authable
 
       def index
+        clients = ClientSearch.new(search_params).results
+
         render(
           json: {
             success: true,
-            **::UserBlueprinter.render_as_hash(Client.includes(:ratings), root: :clients, view: :bulk),
+            **::UserBlueprinter.render_as_hash(clients, root: :clients, view: :bulk),
           }, status: 200
         )
       end
@@ -52,6 +54,10 @@ module Api
 
       def resource
         Client
+      end
+
+      def search_params
+        params.permit(:team_id)
       end
     end
   end
