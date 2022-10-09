@@ -33,7 +33,7 @@ module Api
         render(
           json: {
             success: true,
-            **::UserBlueprinter.render_as_hash(teammates),
+            **::UserBlueprinter.render_as_hash(teammates, root: :colleagues),
           }, status: 200
         )
       end

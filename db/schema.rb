@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_08_222656) do
+ActiveRecord::Schema.define(version: 2022_10_09_011406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2022_10_08_222656) do
     t.integer "participants_needed", default: 0
     t.decimal "experience", default: "0.0"
     t.bigint "currency_id"
+    t.integer "category", default: 0
     t.index ["currency_id"], name: "index_events_on_currency_id"
   end
 
