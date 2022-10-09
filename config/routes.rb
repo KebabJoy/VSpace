@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       resource :exchanges, only: [:create]
       resources :news, only: [:index]
       resources :products, only: [:index] do
-        post :buy, on: :member
+        post :buy, on: :collection
         post :lottery, on: :collection
       end
 
