@@ -3,10 +3,15 @@ require_relative "boot"
 require "rails/all"
 require 'dry/monads/result'
 require 'dry/monads/all'
+require 'oj'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
+Blueprinter.configure do |config|
+  config.generator = Oj # default is JSON
+end
 
 module VMart
   class Application < Rails::Application

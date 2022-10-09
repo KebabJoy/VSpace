@@ -5,5 +5,5 @@ class Team < ApplicationRecord
 
   belongs_to :leader, class_name: 'Client'
 
-  has_many :clients, class_name: 'Client', foreign_key: 'team_id'
+  has_many :colleagues, class_name: 'Client', foreign_key: 'team_id'
 end

@@ -28,7 +28,7 @@ module Api
 
       def colleagues
         client = Client.find(params[:client_id])
-        teammates = client.team&.clients || []
+        teammates = client.team&.colleagues || []
 
         render(
           json: {
