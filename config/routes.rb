@@ -8,6 +8,7 @@ Rails.application.routes.draw do
           post :sign_in
           get :leaderboard
           get :balance_history
+          get :colleagues
         end
       end
 

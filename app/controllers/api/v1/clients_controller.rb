@@ -26,6 +26,10 @@ module Api
         )
       end
 
+      def colleagues
+
+      end
+
       private
 
       def resource
