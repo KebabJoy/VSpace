@@ -30,6 +30,7 @@ module Api
             :currency,
             :participants_needed,
             :experience,
+            :category,
           )
         end
       end

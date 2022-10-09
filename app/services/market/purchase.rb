@@ -21,7 +21,7 @@ module Market
         amount: product.price,
       ).call
 
-      yield process_response(response.success)
+      yield process_response(response)
     end
 
     private

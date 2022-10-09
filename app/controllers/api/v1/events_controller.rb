@@ -4,7 +4,7 @@ module Api
   module V1
     class EventsController < BaseController
       def index
-        events = Event.order(created_at: :desc)
+        events = Event.where('deadline > ?', Time.now).group_by(&:category)
 
         render json: {
           success: true,

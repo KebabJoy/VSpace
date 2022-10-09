@@ -34,6 +34,7 @@ module Api
           json: {
             success: true,
             **::UserBlueprinter.render_as_hash(teammates, root: :colleagues),
+            count: teammates.size,
           }, status: 200
         )
       end
