@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   scope module: :api do
     scope module: :v1 do
-      resource :clients, only: [:create, :show] do
+      resources :clients, only: [:create, :show, :index] do
         collection do
           post :sign_in
           get :leaderboard

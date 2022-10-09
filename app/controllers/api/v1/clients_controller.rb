@@ -5,6 +5,15 @@ module Api
     class ClientsController < BaseController
       include Authable
 
+      def index
+        render(
+          json: {
+            success: true,
+            **::UserBlueprinter.render_as_hash(Client.includes(:ratings), root: :clients),
+          }, status: 200
+        )
+      end
+
       def leaderboard
         render(
           json: {
