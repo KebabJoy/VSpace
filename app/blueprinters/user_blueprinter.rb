@@ -2,7 +2,7 @@
 
 class UserBlueprinter < Blueprinter::Base
   identifier :id
-  fields :first_name, :last_name, :bio, :age, :auth_token, :position
+  fields :first_name, :last_name, :bio, :age, :auth_token, :position, :avatar_url
 
   field :rubles, if: ->(_f, user, _o) { user.is_a?(Client) }
   field :matics, if: ->(_f, user, _o) { user.is_a?(Client) }
