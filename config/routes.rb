@@ -21,9 +21,9 @@ Rails.application.routes.draw do
       end
 
       resource :managers, only: [:create, :show] do
-        resource :exchanges, only: :create
-        resource :news, only: :create
-        resource :events, only: :create
+        resource :exchanges, only: :create, controller: 'managers/exchange'
+        resource :news, only: :create, controller: 'managers/exchange'
+        resource :events, only: :create, controller: 'managers/exchange'
         resources :tasks, only: :index, controller: 'managers/tasks' do
           post :move, on: :member
         end

@@ -9,7 +9,7 @@ module Api
         render(
           json: {
             success: true,
-            **::UserBlueprinter.render_as_hash(Client.includes(:ratings), root: :clients),
+            **::UserBlueprinter.render_as_hash(Client.includes(:ratings), root: :clients, view: :bulk),
           }, status: 200
         )
       end

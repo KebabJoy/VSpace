@@ -4,11 +4,13 @@ module Api
   module V1
     module Managers
       class ExchangesController < BaseController
+        before_action :obtain_currency, only: :create
+
         def create
           response = ::Wallet::Transactions::Processor.new(
             from_client_id: permitted_params[:from_client],
             to_client_id: permitted_params[:to_client],
-            currency: permitted_params[:currency],
+            currency: @currency,
             amount: permitted_params[:amount],
             manager_id: current_member.id,
           ).call
@@ -28,6 +30,10 @@ module Api
 
         def resource
           Manager
+        end
+
+        def obtain_currency
+          @currency ||= Currency.find_by(kind: params[:currency])
         end
       end
     end

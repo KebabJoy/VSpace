@@ -21,7 +21,7 @@ module Wallet
         ).call
 
         transaction_hash = yield valid_response?(response)
-        status = Info.new(transaction_hash: transaction_hash).call
+        status = Info.new(transaction_hash: transaction_hash[:transaction]).call
         ExchangeTransaction.create!(
           amount: amount,
           from_client: @from_client,
@@ -29,6 +29,7 @@ module Wallet
           currency: currency,
           processed: status.success?
         )
+
         Success(:ok)
       end
 
@@ -44,7 +45,7 @@ module Wallet
       end
 
       def valid?
-        return Failure(:not_enough_money) unless @from_client.has_enough_money?(amount, currency)
+        return Failure(:not_enough_money) unless @from_client.has_enough_money?(amount, currency.kind)
 
         Success(:ok)
       end
@@ -64,7 +65,7 @@ module Wallet
       end
 
       def endpoint
-        "/v1/transfers/#{currency}"
+        "/v1/transfers/#{currency.kind}"
       end
     end
   end

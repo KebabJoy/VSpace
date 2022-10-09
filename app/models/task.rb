@@ -10,7 +10,7 @@ class Task < ApplicationRecord
     response = ::Wallet::Transactions::Processor.new(
       from_client_id: Admin::MONEY_STORAGE_ID,
       to_client_id: client_id,
-      currency: event.currency.kind,
+      currency: event.currency,
       amount: event.reward,
     )
 

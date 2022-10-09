@@ -17,11 +17,11 @@ module Market
       response = ::Wallet::Transactions::Processor.new(
         from_client_id: client.id,
         to_client_id: Admin::MONEY_STORAGE_ID,
-        currency: product.currency.kind,
+        currency: product.currency,
         amount: product.price,
       ).call
 
-      yield process_response(response)
+      process_response(response)
     end
 
     private
