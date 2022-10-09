@@ -3,12 +3,13 @@ Rails.application.routes.draw do
 
   scope module: :api do
     scope module: :v1 do
-      resources :clients, only: [:create, :show, :index] do
+      resources :clients, only: [:create, :show] do
         collection do
           post :sign_in
           get :leaderboard
           get :balance_history
           get :colleagues
+          get :index, path: '/index'
         end
       end
 
