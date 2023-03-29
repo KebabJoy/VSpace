@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_09_011406) do
+ActiveRecord::Schema.define(version: 2023_03_29_202616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,44 @@ ActiveRecord::Schema.define(version: 2022_10_09_011406) do
     t.string "transaction_hash"
     t.index ["from_client_type", "from_client_id"], name: "index_exchange_transactions_on_from_client"
     t.index ["to_client_type", "to_client_id"], name: "index_exchange_transactions_on_to_client"
+  end
+
+  create_table "forum_posts", force: :cascade do |t|
+    t.bigint "creator_id", null: false
+    t.text "data", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "upvotes", default: 0
+    t.integer "downvotes", default: 0
+    t.bigint "forum_id"
+    t.index ["creator_id"], name: "index_forum_posts_on_creator_id"
+    t.index ["downvotes"], name: "index_forum_posts_on_downvotes"
+    t.index ["forum_id"], name: "index_forum_posts_on_forum_id"
+    t.index ["upvotes"], name: "index_forum_posts_on_upvotes"
+  end
+
+  create_table "forum_topics", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "forums", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.string "image_url"
+    t.integer "upvotes", default: 0
+    t.integer "downvotes", default: 0
+    t.bigint "creator_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "forum_topics_id"
+    t.index ["creator_id"], name: "index_forums_on_creator_id"
+    t.index ["downvotes"], name: "index_forums_on_downvotes"
+    t.index ["forum_topics_id"], name: "index_forums_on_forum_topics_id"
+    t.index ["title"], name: "index_forums_on_title", unique: true
+    t.index ["upvotes"], name: "index_forums_on_upvotes"
   end
 
   create_table "news", force: :cascade do |t|
@@ -88,6 +126,17 @@ ActiveRecord::Schema.define(version: 2022_10_09_011406) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_ratings_on_client_id"
+  end
+
+  create_table "reactions", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.string "ratable_type"
+    t.bigint "ratable_id"
+    t.integer "value", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_reactions_on_client_id"
+    t.index ["ratable_type", "ratable_id"], name: "index_reactions_on_ratable"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -134,4 +183,6 @@ ActiveRecord::Schema.define(version: 2022_10_09_011406) do
     t.index ["type"], name: "index_users_on_type"
   end
 
+  add_foreign_key "forum_posts", "users", column: "creator_id"
+  add_foreign_key "forums", "users", column: "creator_id"
 end

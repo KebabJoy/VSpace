@@ -19,6 +19,7 @@ gem 'dry-monads', '~> 1.3'
 gem 'rails-i18n', '~> 7.0.0'
 gem 'searchlight'
 gem 'rack-cors'
+gem 'will_paginate' # Tell on pagination: offsets, grep prev page id etc..
 gem 'oj'
 
 group :development, :test do

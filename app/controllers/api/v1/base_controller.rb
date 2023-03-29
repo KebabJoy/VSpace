@@ -10,6 +10,8 @@ module Api
       # rescue_from ActionController::ParameterMissing, with: :handle_parameter_missing
       rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
+      private
+
       def handle_parameter_missing(exception)
         render json: { success: false, message: exception.message.capitalize }, status: 400
       end
@@ -20,6 +22,14 @@ module Api
 
       def current_member
         @current_member ||= resource.find_by(auth_token: params[:auth_token])
+      end
+
+      def page
+        @page ||= params[:page] || 1
+      end
+
+      def per_page
+        @per_page ||= params[:per_page] || 25
       end
     end
   end

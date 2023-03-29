@@ -18,6 +18,9 @@ class Client < User
   has_many :transfer_transactions, class_name: 'ExchangeTransaction', foreign_key: 'from_client_id'
   has_many :topup_transactions, class_name: 'ExchangeTransaction', foreign_key: 'to_client_id'
   has_many :ratings
+  has_many :posts, class_name: 'Forum::Post', foreign_key: 'creator_id'
+  has_many :forums, class_name: 'Forum', foreign_key: 'creator_id'
+  has_many :reactions, class_name: 'Forum::Reaction', foreign_key: 'client_id'
 
   has_one :team_group, class_name: 'Team', foreign_key: 'leader_id'
 

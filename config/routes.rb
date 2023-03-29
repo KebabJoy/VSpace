@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   scope module: :api do
     scope module: :v1 do
-      resources :clients, only: [:create] do
+      resources :clients, only: :create do
         collection do
           post :sign_in
           get :leaderboard
@@ -33,18 +33,26 @@ Rails.application.routes.draw do
         post :sign_in, on: :collection
       end
 
-      resource :exchanges, only: [:create]
-      resources :news, only: [:index]
-      resources :products, only: [:index] do
-        post :buy, on: :collection
-        post :lottery, on: :collection
+      resource :exchanges, only: :create
+      resources :news, only: :index
+      resources :products, only: :index do
+        collection do
+          post :buy
+          post :lottery
+        end
       end
 
-      resources :events, only: [:index] do
+      resources :events, only: :index do
         post :take, on: :collection
       end
 
+      resources :reactions, only: :create
       resources :teams, only: :index
+      resources :forums, only: :index do
+        get :topics, on: :collection
+      end
+
+      resources :posts, only: [:index, :create]
     end
   end
 end

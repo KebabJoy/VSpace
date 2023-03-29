@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+client_payload = []
+
+(1..10).each do |i|
+  client_payload << { email: "test#{i}@test.test", password: '123456', first_name: "Test#{i}", last_name: "Test#{i}", age: i * 10, auth_token: SecureRandom.uuid }
+end
+
+Client.create!(client_payload)
