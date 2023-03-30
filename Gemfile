@@ -21,6 +21,8 @@ gem 'searchlight'
 gem 'rack-cors'
 gem 'will_paginate' # Tell on pagination: offsets, grep prev page id etc..
 gem 'oj'
+gem 'sunspot_rails', '2.6.0'
+gem 'sunspot_solr', '2.6.0' # optional pre-packaged Solr distribution for use in development
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

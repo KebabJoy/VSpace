@@ -11,10 +11,15 @@
 # end
 class Forum < ApplicationRecord
   belongs_to :creator, class_name: 'Client'
-  belongs_to :topic, class_name: 'Forum::Topic'
+  belongs_to :topic, class_name: 'Forum::Topic', foreign_key: 'forum_topics_id'
 
   has_many :upvote_reactions, -> { upvote }, class_name: 'Forum::Reaction', as: :ratable
   has_many :downvote_reactions, -> { downvote }, class_name: 'Forum::Reaction', as: :ratable
 
   validates_presence_of :title, :description, :creator, :topic
+
+  searchable do
+    text(:title, as: :title_fz)
+    text(:description, as: :description_fz)
+  end
 end

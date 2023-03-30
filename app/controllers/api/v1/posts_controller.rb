@@ -4,7 +4,10 @@ module Api
   module V1
     class PostsController < BaseController
       def index
-        posts = PostSearch.new(filter_params).results.paginate(page: page, per_page: per_page)
+        posts = Forum::Post.solr_search do |snp|
+          snp.fulltext(filter_params[:query])
+          snp.paginate page: page, per_page: per_page
+        end
 
         render json: {
           success: true,
@@ -37,7 +40,7 @@ module Api
       end
 
       def filter_params
-        params.permit(:forum_id)
+        params.permit(:query)
       end
     end
   end

@@ -9,5 +9,10 @@ class Forum
     has_many :downvote_reactions, -> { downvote }, class_name: 'Forum::Reaction', as: :ratable
 
     validates_presence_of :data, :forum
+
+    searchable do
+      text(:data, as: :data_fz)
+      integer(:id)
+    end
   end
 end
