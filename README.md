@@ -18,6 +18,6 @@
 * Установить rbenv -> `rbenv install 2.7.5` -> `rbenv local 2.7.5` -> `rbenv rehash`
 * Установить `postgresql`, при необходимости подключить БД тут -> `/config/database.yml`
 * Запустить `bundle install`, чтобы установить все гемы
-* Установить webpacker `bundle exec rails install:webpacker`
+* Установить webpacker `bundle exec rails webpacker:install`
 * Создать БД со всеми таблицами `bundle exec rake db:create` -> `bundle exec rake db:migrate`
 * Запустить сервер `bundle exec rails s`
