@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+      - solr
+    environment:
+      DATABASE_URL: "postgresql://postgres:password@db:5432/VMart_production"
+      SECRET_KEY_BASE: mysecretkey
+      REDIS_URL: "redis://redis:6379/0"
+      SOLR_URL: "http://solr:8983/solr/production"
+      VMART_DATABASE_PASSWORD: password
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: VMart_production
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:6.2.5-alpine
+
+  solr:
+    image: solr:8.11.1
+    environment:
+      SOLR_CORE: mycore
+    ports:
+      - "8983"
+
+volumes:
+  db_data:

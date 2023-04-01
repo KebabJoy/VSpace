@@ -8,7 +8,7 @@
 client_payload = []
 
 (1..10).each do |i|
-  client_payload << { email: "test#{i}@test.test", password: '123456', first_name: "Test#{i}", last_name: "Test#{i}", age: i * 10, auth_token: SecureRandom.uuid }
+  client_payload << { email: "test#{i}@test.test", password: '123456', first_name: "Test#{i}", last_name: "Test#{i}", age: i * 10, auth_token: SecureRandom.uuid, bio: 'С 17 по 20 апреля приходи на неделю митапов для начинающих разработчиков от Яндекс. Будет доступен офлайн и онлайн формат.', position: 'SWE', avatar_url: 'https://www.gameinformer.com/s3/files/styles/body_default/s3/legacy-images/imagefeed/Update%3A%20Complete%20List%20Of%20Avatar%20Awards/avatarawardherree.jpg' }
 end
 
 Client.create!(client_payload)
