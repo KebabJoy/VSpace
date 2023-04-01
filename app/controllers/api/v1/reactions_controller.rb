@@ -8,6 +8,8 @@ module Api
 
         if result.success?
           render json: { success: true }, status: 200
+        else
+          rendef json: { success: false, message: result.failure }, status: 400
         end
       end
 

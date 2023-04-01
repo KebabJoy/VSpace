@@ -7,4 +7,8 @@ class PostBlueprinter < Blueprinter::Base
   field(:creator_fullname) do |obj, _o|
     obj.creator.first_name + ' ' + obj.creator.last_name
   end
+
+  field(:reaction) do |obj, opts|
+    opts[:client].reactions.find_by(ratable: obj)&.value.to_i
+  end
 end

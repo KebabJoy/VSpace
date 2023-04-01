@@ -15,7 +15,7 @@ module Api
               }, status: 200
             )
           else
-            render json: { success: false, message: event.errors.full_message }, status: 400
+            render json: { success: false, message: event.errors.full_messages }, status: 400
           end
         end
 

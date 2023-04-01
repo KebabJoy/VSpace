@@ -4,7 +4,12 @@ module Api
   module V1
     class ForumsController < BaseController
       def index
-        @forums = ForumSearch.new(forum_search_params).results.paginate(page: page, per_page: per_page)
+        @forums = Rails.cache.fetch("forum:index:#{cache_key}") do
+          Forum.solr_search do |snp|
+            snp.fulltext(params[:query])
+            snp.paginate page: page, per_page: per_page
+          end.results
+        end
 
         render json: {
           success: true,
@@ -27,12 +32,21 @@ module Api
 
       private
 
-      def forum_search_params
-        params.permit(:title)
-      end
-
       def resource
         Client
+      end
+
+      def cache_key
+        key =
+          {
+            query: params[:query],
+            page: page,
+            per_page: per_page,
+          }.sort.map do |modifier, value|
+            "#{modifier}:#{value}"
+          end.join('::').downcase
+
+        Digest::MD5.hexdigest(key)
       end
     end
   end

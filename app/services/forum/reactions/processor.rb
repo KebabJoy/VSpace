@@ -52,7 +52,7 @@ class Forum
 
       def validate_params
         return Failure('Client not found') unless @client
-        return Failure('Value is not in range (-1..1)') unless @value.in?(-1..1)
+        return Failure('Value is not in range (-1..1)') unless @value.to_i.in?(-1..1)
 
         Success(:ok)
       end

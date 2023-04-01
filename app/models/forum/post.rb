@@ -12,7 +12,7 @@ class Forum
 
     searchable do
       text(:data, as: :data_fz)
-      integer(:id)
+      integer(:forum_id)
     end
   end
 end

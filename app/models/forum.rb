@@ -15,6 +15,7 @@ class Forum < ApplicationRecord
 
   has_many :upvote_reactions, -> { upvote }, class_name: 'Forum::Reaction', as: :ratable
   has_many :downvote_reactions, -> { downvote }, class_name: 'Forum::Reaction', as: :ratable
+  has_many :posts, class_name: 'Forum::Post'
 
   validates_presence_of :title, :description, :creator, :topic
 
