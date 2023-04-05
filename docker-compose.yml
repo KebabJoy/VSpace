@@ -10,17 +10,19 @@ services:
       - redis
       - solr
     environment:
-      DATABASE_URL: "postgresql://postgres:password@db:5432/VMart_production"
       SECRET_KEY_BASE: mysecretkey
       REDIS_URL: "redis://redis:6379/0"
       SOLR_URL: "http://solr:8983/solr/production"
-      VMART_DATABASE_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST: db
     volumes:
       - .:/app
 
   db:
     image: postgres:13
     environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: VMart_production

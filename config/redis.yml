@@ -1,0 +1,46 @@
+<%
+  def get_env_var(name, default = nil)
+      ENV[name] || default
+  end
+%>
+
+default: &default
+  static:
+    url: redis://<%= get_env_var('REDIS_HOST', 'localhost') %>:6379/0
+  cache:
+    url: redis://<%= get_env_var('REDIS_HOST', 'localhost') %>:6379/0
+  sidekiq:
+    url: redis://<%= get_env_var('REDIS_HOST', 'localhost') %>:6379/0
+  rails:
+    url: redis://<%= get_env_var('REDIS_HOST', 'localhost') %>:6379/0
+
+development:
+  <<: *default
+
+test:
+  static:
+    url: redis://<%= get_env_var('REDIS_HOST', 'localhost') %>:6379/0
+    db: <%= ENV['TEST_ENV_NUMBER'] %>
+  cache:
+    url: redis://<%= get_env_var('REDIS_HOST', 'localhost') %>:6379/0
+    db: <%= ENV['TEST_ENV_NUMBER'] %>
+  sidekiq:
+    url: redis://<%= get_env_var('REDIS_HOST', 'localhost') %>:6379/0
+    db: <%= ENV['TEST_ENV_NUMBER'] %>
+  rails:
+    url: redis://<%= get_env_var('REDIS_HOST', 'localhost') %>:6379/0
+    db: <%= ENV['TEST_ENV_NUMBER'] %>
+
+production:
+  static:
+    url: redis://<%= get_env_var('REDIS_HOST', 'localhost') %>:6379/0
+    db: <%= ENV['TEST_ENV_NUMBER'] %>
+  cache:
+    cluster: "<%= get_env_var('REDIS_CACHE_NODES') %>"
+    password: "<%= get_env_var('REDIS_CACHE_PASSWORD') %>"
+  sidekiq:
+    url: "redis://<%= get_env_var('REDIS_PROXY_SIDEKIQ') %>"
+    password: "<%= get_env_var('REDIS_SIDEKIQ_PASSWORD') %>"
+  rails:
+    url: redis://<%= get_env_var('REDIS_RAILS_ADDR') %>
+    password: "<%= get_env_var('REDIS_RAILS_PASSWORD') %>"
