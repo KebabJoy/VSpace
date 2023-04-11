@@ -4,7 +4,7 @@ module Api
   module V1
     class ForumsController < BaseController
       def index
-        @forums = Rails.cache.fetch("forum:index:#{cache_key}") do
+        @forums = Rails.cache.fetch("forum:index:#{cache_key}", expires_in: 120.seconds) do
           Forum.solr_search do |snp|
             snp.fulltext(params[:query])
             snp.paginate page: page, per_page: per_page

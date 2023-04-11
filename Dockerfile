@@ -21,7 +21,7 @@ COPY . .
 ENV RAILS_ENV=production \
   RAILS_LOG_TO_STDOUT=true \
   RAILS_SERVE_STATIC_FILES=true \
-  SECRET_KEY_BASE=your-secret-key-base \
+  SECRET_KEY_BASE=your-secret-key-base
 
 # Start Solr and Rails server
 CMD ["sh", "-c", "cd /usr/src/app && bundle exec rails s -b 0.0.0.0"]

@@ -8,7 +8,9 @@ module Api
 
         render json: {
           success: true,
-          **::EventBlueprinter.render_as_hash(events, root: :events),
+          **::EventBlueprinter.render_as_hash(events['game'] || Event.none, root: :games),
+          **::EventBlueprinter.render_as_hash(events['marathon'] || Event.none, root: :marathons),
+          **::EventBlueprinter.render_as_hash(events['course'] || Event.none, root: :courses),
           count: events.size,
         }, status: 200
       end

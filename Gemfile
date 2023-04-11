@@ -21,6 +21,7 @@ gem 'searchlight'
 gem 'rack-cors'
 gem 'connection_pool'
 gem 'hiredis'
+gem "rails_event_store"
 gem 'redis', '~> 4.6.0', require: ['redis', 'redis/connection/hiredis']
 gem 'redis-store', '~> 1.9.1'
 gem 'redis-rails'
@@ -31,6 +32,7 @@ gem 'sunspot_solr', '2.6.0' # optional pre-packaged Solr distribution for use in
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'faker'
   gem 'pry'
 end
 
