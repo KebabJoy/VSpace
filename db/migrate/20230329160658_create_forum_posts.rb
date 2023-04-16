@@ -6,5 +6,8 @@ class CreateForumPosts < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    Forum.update_all(creator: Client.first)
+    Forum.in_batches.update_all(creator: Client.first)
   end
 end

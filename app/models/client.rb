@@ -31,6 +31,7 @@ class Client < User
   end
 
   def nft_balance
-    @nft_balance ||= Wallet::Nft::BalanceInfo.new(client: self).call
+    matics
+    # @nft_balance ||= Wallet::Nft::BalanceInfo.new(client: self).call
   end
 end

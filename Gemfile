@@ -16,6 +16,7 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'dry-initializer'
 gem 'dry-monads', '~> 1.3'
+gem 'paper_trail'
 gem 'rails-i18n', '~> 7.0.0'
 gem 'searchlight'
 gem 'rack-cors'
@@ -33,6 +34,7 @@ gem 'sunspot_solr', '2.6.0' # optional pre-packaged Solr distribution for use in
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'faker'
+  gem "factory_bot_rails", require: false
   gem 'pry'
 end
 
@@ -47,6 +49,11 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   gem 'webdrivers'
+  gem "fuubar"
+  gem "rspec-rails"
+  gem "database_cleaner"
+  gem 'sunspot-rails-tester'
+  gem "test-prof"
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

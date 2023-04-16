@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   after_create :create_wallet
 
+  has_paper_trail
+
   def setup_token
     self.auth_token = SecureRandom.uuid
   end
@@ -36,10 +38,10 @@ class User < ApplicationRecord
   private
 
   def create_wallet
-    ::Wallet::Initializer.new(client: self).call
+    # ::Wallet::Initializer.new(client: self).call
   end
 
   def sync_money
-    @sync_money ||= Wallet::BalanceInfo.new(client: self).call
+    # @sync_money ||= Wallet::BalanceInfo.new(client: self).call
   end
 end

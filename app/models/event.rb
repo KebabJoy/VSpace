@@ -7,4 +7,6 @@ class Event < ApplicationRecord
 
   belongs_to :currency
   has_many :tasks
+
+  has_paper_trail
 end
